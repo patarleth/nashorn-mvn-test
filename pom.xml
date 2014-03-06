@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.arleth.nashorn.test</groupId>
+  <artifactId>nashorn-maven-test</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+  <name>sample nashorn maven project</name>
+
+  <properties>
+    <junit.version>4.9</junit.version>
+    <jdk.version>1.8</jdk.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>printHelloWorld</id>
+            <phase>initialize</phase>
+            <configuration>
+              <mainClass>ExecJsScriptEngine</mainClass>
+              <arguments>
+                <argument>
+                  ./src/js/initialize.js
+                </argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.arleth.nashorn</groupId>
+        <artifactId>nashorn-maven</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>printTestWorld</id>
+            <phase>test</phase>
+            <configuration>
+              <scripttext>java.lang.System.out.println('\n\n\nTest World\n\n\n');</scripttext>
+            </configuration>
+            <goals>
+              <goal>jsmojo</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>printTestWorldFromFile</id>
+            <phase>test</phase>
+            <configuration>
+              <scriptfile>./src/js/testworld.js</scriptfile>
+            </configuration>
+            <goals>
+              <goal>jsmojo</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>printTestWorld2</id>
+            <phase>test</phase>
+            <configuration>
+              <scripttext>java.lang.System.out.println('\n\n\nTest World from script again\n\n\n');</scripttext>
+            </configuration>
+            <goals>
+              <goal>jsmojo</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.arleth.nashorn</groupId>
+      <artifactId>nashorn-maven</artifactId>
+	  <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+</project>
